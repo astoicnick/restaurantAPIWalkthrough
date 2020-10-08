@@ -19,5 +19,17 @@ namespace RestaurantRaterAPI.Controllers
 
             return Ok(restaurantsInDB);
         }
+        [HttpPost]
+        public IHttpActionResult Create(Restaurant restaurantToAdd)
+        {
+            _context.Restaurants.Add(restaurantToAdd);
+
+            if (_context.SaveChanges() == 1)
+            {
+                return Ok(restaurantToAdd);
+            }
+
+            return BadRequest();
+        }
     }
 }
