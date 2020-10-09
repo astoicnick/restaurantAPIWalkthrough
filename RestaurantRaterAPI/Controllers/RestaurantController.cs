@@ -67,5 +67,11 @@ namespace RestaurantRaterAPI.Controllers
             return BadRequest();
         }
         // Delete
+        [HttpDelete]
+        [Route("{id}")]
+        public IHttpActionResult Delete([FromUri] int id)
+        {
+            // _context.Restaurants.Remove(/*Restaurant you want to delete*/);
+        }
     }
 }
