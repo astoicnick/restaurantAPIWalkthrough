@@ -45,6 +45,26 @@ namespace RestaurantRaterAPI.Controllers
             return BadRequest();
         }
         // Update
+        [HttpPut]
+        public IHttpActionResult Update(Restaurant updatedRestaurant)
+        {
+            Restaurant requestedRestaurant = _context.Restaurants.Find(updatedRestaurant.RestaurantId);
+            if (requestedRestaurant == null)
+            {
+                return BadRequest("Invalid ID");
+                //return NotFound();
+            }
+
+            requestedRestaurant = updatedRestaurant;
+
+            if (_context.SaveChanges() == 1)
+            {
+                return Ok(updatedRestaurant);
+            }
+
+            //return InternalServerError();
+            return BadRequest();
+        }
         // Delete
     }
 }
