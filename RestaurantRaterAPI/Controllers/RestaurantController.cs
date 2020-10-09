@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace RestaurantRaterAPI.Controllers
 {
+    [RoutePrefix("api/restaurant")]
     public class RestaurantController : ApiController
     {
         private readonly ApplicationDbContext _context = new ApplicationDbContext();
@@ -71,7 +72,21 @@ namespace RestaurantRaterAPI.Controllers
         [Route("{id}")]
         public IHttpActionResult Delete([FromUri] int id)
         {
-            // _context.Restaurants.Remove(/*Restaurant you want to delete*/);
+            Restaurant requestedRestaurant = _context.Restaurants.Find(id);
+
+            if (requestedRestaurant == null)
+            {
+                return BadRequest("Invalid ID");
+            }
+
+            _context.Restaurants.Remove(requestedRestaurant);
+
+            if (_context.SaveChanges() == 1)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
         }
     }
 }
