@@ -11,7 +11,7 @@ namespace RestaurantRaterAPI.Controllers
     public class RestaurantController : ApiController
     {
         private readonly ApplicationDbContext _context = new ApplicationDbContext();
-        // Return all restaurants in the database
+        // Read All
         [HttpGet]
         public IHttpActionResult Index()
         {
@@ -19,6 +19,19 @@ namespace RestaurantRaterAPI.Controllers
 
             return Ok(restaurantsInDB);
         }
+        // Read single
+        [HttpGet]
+        [Route("{id}")]
+        public IHttpActionResult GetByID(int id)
+        {
+            Restaurant requestedRestaurant = _context.Restaurants.Find(id);
+            if (requestedRestaurant == null)
+            {
+                return NotFound();
+            }
+            return Ok(requestedRestaurant);
+        }
+        // Create
         [HttpPost]
         public IHttpActionResult Create(Restaurant restaurantToAdd)
         {
@@ -31,5 +44,7 @@ namespace RestaurantRaterAPI.Controllers
 
             return BadRequest();
         }
+        // Update
+        // Delete
     }
 }

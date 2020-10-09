@@ -13,5 +13,6 @@ namespace RestaurantRaterAPI.Models
         [Key]
         public int RestaurantId { get; set; }
         public string Name { get; set; }
+        public int Rating { get; set; }
     }
 }
