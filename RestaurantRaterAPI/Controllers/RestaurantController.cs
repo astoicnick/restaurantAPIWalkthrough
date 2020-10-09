@@ -55,7 +55,8 @@ namespace RestaurantRaterAPI.Controllers
                 //return NotFound();
             }
 
-            requestedRestaurant = updatedRestaurant;
+            requestedRestaurant.Name = updatedRestaurant.Name;
+            requestedRestaurant.Rating = updatedRestaurant.Rating;
 
             if (_context.SaveChanges() == 1)
             {
